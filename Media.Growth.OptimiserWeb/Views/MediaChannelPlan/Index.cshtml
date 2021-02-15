@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Media.Growth.OptimiserWeb.Models.MediaChannelPlan>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Period)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SalesBase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarryOver)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpliftMax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpendHalf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpendOpt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactPoint.ContactPointName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Period)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalesBase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CarryOver)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpliftMax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpendHalf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpendOpt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactPoint.ContactPointName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idMediaChannel }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idMediaChannel }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idMediaChannel })
+        </td>
+    </tr>
+}
+
+</table>

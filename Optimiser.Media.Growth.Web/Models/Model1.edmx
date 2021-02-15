@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="mPhasingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="BrandId" />
+          </Key>
+          <Property Name="BrandId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BrandName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Channel">
+          <Key>
+            <PropertyRef Name="ChannelId" />
+          </Key>
+          <Property Name="ChannelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChannelName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ContactPoint">
+          <Key>
+            <PropertyRef Name="ContactPointId" />
+          </Key>
+          <Property Name="ContactPointId" Type="int" Nullable="false" />
+          <Property Name="ContactPointName" Type="nvarchar" MaxLength="50" />
+          <Property Name="fkChannelId" Type="int" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="CurrencyId" />
+          </Key>
+          <Property Name="CurrencyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CurrencyName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="DivisionId" />
+          </Key>
+          <Property Name="DivisionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Division" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MediaChannelPlan">
+          <Key>
+            <PropertyRef Name="idMediaChannel" />
+          </Key>
+          <Property Name="idMediaChannel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Period" Type="nvarchar" MaxLength="50" />
+          <Property Name="Media" Type="int" />
+          <Property Name="SalesBase" Type="int" />
+          <Property Name="CarryOver" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="UpliftMax" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="SpendHalf" Type="int" />
+          <Property Name="SpendOpt" Type="int" />
+        </EntityType>
+        <Association Name="FK_ContactPoint_Channel">
+          <End Role="Channel" Type="Self.Channel" Multiplicity="0..1" />
+          <End Role="ContactPoint" Type="Self.ContactPoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Channel">
+              <PropertyRef Name="ChannelId" />
+            </Principal>
+            <Dependent Role="ContactPoint">
+              <PropertyRef Name="fkChannelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MediaChannelPlan_ContactPoint">
+          <End Role="ContactPoint" Type="Self.ContactPoint" Multiplicity="0..1" />
+          <End Role="MediaChannelPlan" Type="Self.MediaChannelPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContactPoint">
+              <PropertyRef Name="ContactPointId" />
+            </Principal>
+            <Dependent Role="MediaChannelPlan">
+              <PropertyRef Name="Media" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mPhasingModelStoreContainer">
+          <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Channel" EntityType="Self.Channel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactPoint" EntityType="Self.ContactPoint" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MediaChannelPlan" EntityType="Self.MediaChannelPlan" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ContactPoint_Channel" Association="Self.FK_ContactPoint_Channel">
+            <End Role="Channel" EntitySet="Channel" />
+            <End Role="ContactPoint" EntitySet="ContactPoint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MediaChannelPlan_ContactPoint" Association="Self.FK_MediaChannelPlan_ContactPoint">
+            <End Role="ContactPoint" EntitySet="ContactPoint" />
+            <End Role="MediaChannelPlan" EntitySet="MediaChannelPlan" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mPhasingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="BrandId" />
+          </Key>
+          <Property Name="BrandId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrandName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Channel">
+          <Key>
+            <PropertyRef Name="ChannelId" />
+          </Key>
+          <Property Name="ChannelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChannelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ContactPoints" Relationship="Self.FK_ContactPoint_Channel" FromRole="Channel" ToRole="ContactPoint" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ContactPoint">
+          <Key>
+            <PropertyRef Name="ContactPointId" />
+          </Key>
+          <Property Name="ContactPointId" Type="Int32" Nullable="false" />
+          <Property Name="ContactPointName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fkChannelId" Type="Int32" />
+          <NavigationProperty Name="Channel" Relationship="Self.FK_ContactPoint_Channel" FromRole="ContactPoint" ToRole="Channel" />
+          <NavigationProperty Name="MediaChannelPlans" Relationship="Self.FK_MediaChannelPlan_ContactPoint" FromRole="ContactPoint" ToRole="MediaChannelPlan" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="CurrencyId" />
+          </Key>
+          <Property Name="CurrencyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CurrencyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="DivisionId" />
+          </Key>
+          <Property Name="DivisionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DivisionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MediaChannelPlan">
+          <Key>
+            <PropertyRef Name="idMediaChannel" />
+          </Key>
+          <Property Name="idMediaChannel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Period" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Media" Type="Int32" />
+          <Property Name="SalesBase" Type="Int32" />
+          <Property Name="CarryOver" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="UpliftMax" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="SpendHalf" Type="Int32" />
+          <Property Name="SpendOpt" Type="Int32" />
+          <NavigationProperty Name="ContactPoint" Relationship="Self.FK_MediaChannelPlan_ContactPoint" FromRole="MediaChannelPlan" ToRole="ContactPoint" />
+        </EntityType>
+        <Association Name="FK_ContactPoint_Channel">
+          <End Role="Channel" Type="Self.Channel" Multiplicity="0..1" />
+          <End Role="ContactPoint" Type="Self.ContactPoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Channel">
+              <PropertyRef Name="ChannelId" />
+            </Principal>
+            <Dependent Role="ContactPoint">
+              <PropertyRef Name="fkChannelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MediaChannelPlan_ContactPoint">
+          <End Role="ContactPoint" Type="Self.ContactPoint" Multiplicity="0..1" />
+          <End Role="MediaChannelPlan" Type="Self.MediaChannelPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContactPoint">
+              <PropertyRef Name="ContactPointId" />
+            </Principal>
+            <Dependent Role="MediaChannelPlan">
+              <PropertyRef Name="Media" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mphasingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brands" EntityType="Self.Brand" />
+          <EntitySet Name="Channels" EntityType="Self.Channel" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="ContactPoints" EntityType="Self.ContactPoint" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="Currencies" EntityType="Self.Currency" />
+          <EntitySet Name="Divisions" EntityType="Self.Division" />
+          <EntitySet Name="MediaChannelPlans" EntityType="Self.MediaChannelPlan" />
+          <AssociationSet Name="FK_ContactPoint_Channel" Association="Self.FK_ContactPoint_Channel">
+            <End Role="Channel" EntitySet="Channels" />
+            <End Role="ContactPoint" EntitySet="ContactPoints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MediaChannelPlan_ContactPoint" Association="Self.FK_MediaChannelPlan_ContactPoint">
+            <End Role="ContactPoint" EntitySet="ContactPoints" />
+            <End Role="MediaChannelPlan" EntitySet="MediaChannelPlans" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mPhasingModelStoreContainer" CdmEntityContainer="mphasingEntities">
+          <EntitySetMapping Name="Brands">
+            <EntityTypeMapping TypeName="mPhasingModel.Brand">
+              <MappingFragment StoreEntitySet="Brand">
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Channels">
+            <EntityTypeMapping TypeName="mPhasingModel.Channel">
+              <MappingFragment StoreEntitySet="Channel">
+                <ScalarProperty Name="ChannelId" ColumnName="ChannelId" />
+                <ScalarProperty Name="ChannelName" ColumnName="ChannelName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="mPhasingModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactPoints">
+            <EntityTypeMapping TypeName="mPhasingModel.ContactPoint">
+              <MappingFragment StoreEntitySet="ContactPoint">
+                <ScalarProperty Name="ContactPointId" ColumnName="ContactPointId" />
+                <ScalarProperty Name="ContactPointName" ColumnName="ContactPointName" />
+                <ScalarProperty Name="fkChannelId" ColumnName="fkChannelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="mPhasingModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Currencies">
+            <EntityTypeMapping TypeName="mPhasingModel.Currency">
+              <MappingFragment StoreEntitySet="Currency">
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="CurrencyName" ColumnName="CurrencyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Divisions">
+            <EntityTypeMapping TypeName="mPhasingModel.Division">
+              <MappingFragment StoreEntitySet="Division">
+                <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+                <ScalarProperty Name="DivisionName" ColumnName="Division" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MediaChannelPlans">
+            <EntityTypeMapping TypeName="mPhasingModel.MediaChannelPlan">
+              <MappingFragment StoreEntitySet="MediaChannelPlan">
+                <ScalarProperty Name="idMediaChannel" ColumnName="idMediaChannel" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="Media" ColumnName="Media" />
+                <ScalarProperty Name="SalesBase" ColumnName="SalesBase" />
+                <ScalarProperty Name="CarryOver" ColumnName="CarryOver" />
+                <ScalarProperty Name="UpliftMax" ColumnName="UpliftMax" />
+                <ScalarProperty Name="SpendHalf" ColumnName="SpendHalf" />
+                <ScalarProperty Name="SpendOpt" ColumnName="SpendOpt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

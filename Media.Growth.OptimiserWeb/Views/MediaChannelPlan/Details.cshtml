@@ -1,0 +1,75 @@
+﻿@model Media.Growth.OptimiserWeb.Models.MediaChannelPlan
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MediaChannelPlan</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Period)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Period)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SalesBase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalesBase)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CarryOver)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CarryOver)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpliftMax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpliftMax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpendHalf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpendHalf)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpendOpt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpendOpt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactPoint.ContactPointName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactPoint.ContactPointName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idMediaChannel }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
